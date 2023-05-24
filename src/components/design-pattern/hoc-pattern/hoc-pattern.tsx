@@ -63,7 +63,7 @@ export const HocPattern = () => {
             <div className='flex gap-2 items-center'>
                 {button1}
                 {button2}
-                <button onClick={convertToWordFile}>Down</button>
+                <button onClick={convertToWordFile}>Down Load</button>
             </div>
         </>
     )
