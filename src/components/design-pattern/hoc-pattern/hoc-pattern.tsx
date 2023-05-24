@@ -65,6 +65,7 @@ export const HocPattern = () => {
                 {button2}
                 <button onClick={convertToWordFile}>Down Load</button>
             </div>
+            <p>Bla bla</p>
         </>
     )
 }
