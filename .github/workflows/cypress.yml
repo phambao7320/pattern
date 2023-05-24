@@ -1,9 +1,6 @@
 name: Cypress CI/CD
 
 on:
-    push:
-        branches:
-            - main
     pull_request:
         branches:
             - main
@@ -20,7 +17,64 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 16.x
+            - name: Cache
+              uses: actions/cache@v3
+              with:
+                  path: '**/node_modules'
+                  keys: ${{runner.os}}-modules-yarn-${{ hashFiles('**/yarn.lock')}}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
             - name: Insatall modules
               run: yarn install
             - name: Run Cypress tests
               run: npx cypress run
+
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Use Node.js 16.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16.x
+            - name: Cache
+              uses: actions/cache@v3
+              with:
+                  path: '**/node_modules'
+                  keys: ${{runner.os}}-modules-yarn-${{ hashFiles('**/yarn.lock')}}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+            - name: Install Modules
+              run: yarn install
+
+            - name: Run lint
+              run: yarn run lint
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Use Node.js 16.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16.x
+            - name: Cache
+              uses: actions/cache@v3
+              with:
+                  path: '**/node_modules'
+                  keys: ${{runner.os}}-modules-yarn-${{ hashFiles('**/yarn.lock')}}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+            - name: Install Modules
+              run: yarn install
+
+            - name: Deploy to vercel
+              uses: amondnet/vercel-action
+              with:
+                  vercel-token: ${{secrets.VERCEL_TOKEN}}
+                  vercel-args: '--prod'
+                  vercel-org-id: ${{secrets.ORG_ID}}
+                  vercel-project-id: ${{secrets.PROJECT_ID}}

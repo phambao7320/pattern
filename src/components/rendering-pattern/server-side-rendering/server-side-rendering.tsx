@@ -7,8 +7,8 @@ export const ExampleServerSideRendering = ({ data }: any) => {
             <ul>
                 {!!data.length &&
                     data.map((item: any) => (
-                        <Link href={`/rendering-pattern/server-side-rendering/${item.id}`}>
-                            <li key={item.id}>{`${item.id}. ${item.title}`}</li>
+                        <Link href={`/rendering-pattern/server-side-rendering/${item.id}`} key={item.id}>
+                            <li>{`${item.id}. ${item.title}`}</li>
                         </Link>
                     ))}
             </ul>

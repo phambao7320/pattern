@@ -10,7 +10,7 @@ interface PeopleProps {
 
 class People extends Component<PeopleProps> {
     getJob = () => {
-        return <div>`I'm a ${this.props.job}`</div>
+        return <div>{`I'm a ${this.props.job}`}</div>
     }
 
     render() {

@@ -8,7 +8,7 @@ const SearchResult = async ({ params }: any) => {
             <div>SearchResult</div>
             <ol className='list-decimal'>
                 {result.map((item: any) => (
-                    <li>{item.title}</li>
+                    <li key={item.it}>{item.title}</li>
                 ))}
             </ol>
         </div>
