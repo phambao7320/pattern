@@ -52,6 +52,8 @@ export const HocPattern = () => {
         URL.revokeObjectURL(url)
     }
 
+    console.log('update change')
+
     return (
         <>
             <div>HocPattern</div>
