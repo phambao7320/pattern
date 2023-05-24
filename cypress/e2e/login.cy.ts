@@ -1,6 +1,6 @@
 describe('My First Login Test', () => {
     it('login devlandnow', () => {
-        cy.visit('https://dev--landnow-ui.netlify.app/')
+        cy.visit('https://pr-2194--landnow-ui.netlify.app/')
 
         // Should go to the login
         cy.url().should('include', '/login')
