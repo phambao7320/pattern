@@ -51,6 +51,12 @@ jobs:
               run: yarn install
 
             - name: Deploy to vercel
-              run: npx vercel --token ${VERCEL_TOKEN} ---prod
+              run: |
+                  prodRun=""
+                  if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+                  prodRun="--prod"
+                  fi
+
+                  npx vercel --token ${VERCEL_TOKEN} $prodRun
               env:
                   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
