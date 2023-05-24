@@ -56,11 +56,9 @@ jobs:
                   node-version: 16.x
             - name: Install Modules
               run: yarn install
+
             - name: Install Vercel CLI
-              run: |
-                  yarn add global vercel@latest
-                  echo "GitHub Event Name: ${{ github.event_name }}"
-                  echo "Pull Request Merged: ${{ github.event.pull_request.merged }}"
+              run: yarn add global vercel@latest
 
             # Pull Preview
             - name: Pull Preview
@@ -69,7 +67,7 @@ jobs:
 
             # Pull Production
             - name: Pull Production
-              if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+              if: github.event_name == 'push'
               run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
             # Build Preview
@@ -79,7 +77,7 @@ jobs:
 
             # Build Production
             - name: Build Production
-              if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+              if: github.event_name == 'push'
               run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
             # Deploy Preview
@@ -90,5 +88,5 @@ jobs:
 
             # Deploy Production
             - name: Deploy Production
-              if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+              if: github.event_name == 'push'
               run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

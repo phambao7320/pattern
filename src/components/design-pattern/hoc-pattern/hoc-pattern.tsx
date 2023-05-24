@@ -55,7 +55,7 @@ export const HocPattern = () => {
     return (
         <>
             <div>HocPattern</div>
-            <div>Oke Test 7</div>
+            <div>Oke Test 8</div>
             <ol>
                 {listTodo.map((item: any) => (
                     <li key={item.id}>{`${item.id}. ${item.title}`}</li>
