@@ -1,7 +1,7 @@
 name: Cypress CI/CD
 
 on:
-    pull_request:
+    push:
         branches:
             - main
 
@@ -54,7 +54,8 @@ jobs:
                   node-version: 16.x
             - name: Install Modules
               run: yarn install
-
+            - name: Install Vercel CLI
+              run: yarn add global vercel@latest
             - name: Deploy to vercel
               run: npx vercel --token ${VERCEL_TOKEN}
               env:
