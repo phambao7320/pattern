@@ -1,9 +1,6 @@
 name: Cypress CI/CD
 
 on:
-    push:
-        branches:
-            - main
     pull_request:
         branches:
             - main
@@ -11,7 +8,6 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-
         steps:
             - uses: actions/checkout@v3
               with:
@@ -20,7 +16,16 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 16.x
-            - name: Insatall modules
+
+            # - name: Cache Fetch
+            #   uses: actions/cache@v3
+            #   with:
+            #       path: '**/node_modules'
+            #       key: ${{ runner.os }}-modules-yarn-${{ hashFiles('**/yarn.lock') }}
+            #       restore-keys: |
+            #           ${{ runner.os }}-yarn-
+
+            - name: Install modules
               run: yarn install
             - name: Run Cypress tests
               run: npx cypress run
@@ -35,10 +40,20 @@ jobs:
             - uses: actions/checkout@v3
               with:
                   fetch-depth: 0
+
             - name: Use Node.js 16.x
               uses: actions/setup-node@v3
               with:
                   node-version: 16.x
+
+            # - name: Cache Fetch
+            #   uses: actions/cache@v3
+            #   with:
+            #       path: '**/node_modules'
+            #       key: ${{ runner.os }}-modules-yarn-${{ hashFiles('**/yarn.lock') }}
+            #       restore-keys: |
+            #           ${{ runner.os }}-yarn-
+
             - name: Install Modules
               run: yarn install
 
@@ -50,10 +65,20 @@ jobs:
             - uses: actions/checkout@v3
               with:
                   fetch-depth: 0
+
             - name: Use Node.js 16.x
               uses: actions/setup-node@v3
               with:
                   node-version: 16.x
+
+            # - name: Cache Fetch
+            #   uses: actions/cache@v3
+            #   with:
+            #       path: '**/node_modules'
+            #       key: ${{ runner.os }}-modules-yarn-${{ hashFiles('**/yarn.lock') }}
+            #       restore-keys: |
+            #           ${{ runner.os }}-yarn-
+
             - name: Install Modules
               run: yarn install
 
@@ -66,8 +91,9 @@ jobs:
               run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
             # Pull Production
+            # if github.event_name == 'push'
             - name: Pull Production
-              if: github.event_name == 'push'
+              if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
               run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
             # Build Preview
@@ -76,17 +102,18 @@ jobs:
               run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
             # Build Production
+            # if github.event_name == 'push'
             - name: Build Production
-              if: github.event_name == 'push'
+              if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
               run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
             # Deploy Preview
             - name: Deploy Preview
               if: github.event_name == 'pull_request' && github.event.pull_request.merged != true
-              id: deploy
               run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
 
             # Deploy Production
+            # if github.event_name == 'push'
             - name: Deploy Production
-              if: github.event_name == 'push'
+              if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
               run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
