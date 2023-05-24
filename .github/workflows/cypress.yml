@@ -56,8 +56,9 @@ jobs:
               run: yarn install
             - name: Install Vercel CLI
               run: yarn add global vercel@latest
-            - name: Deploy to vercel
-              run: npx vercel --token ${VERCEL_TOKEN}
-              env:
-                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-                  NODE_ENV: production
+            - name: Pull Vercel Environment Information
+              run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+            - name: Build Project Artifacts
+              run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+            - name: Deploy Project Artifacts to Vercel
+              run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
