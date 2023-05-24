@@ -33,3 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Cypress test
+**/cypress/videos/
+**/cypress/screenshots/
+**/cypress/downloads/
+cypress.env.json

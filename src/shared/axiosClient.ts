@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const singletonEnforcer = Symbol()
 
-const baseURL = 'https://jsonplaceholder.typicode.com/todos'
+const baseURL = 'https://jsonplaceholder.typicode.com/'
 
 class AxiosClient {
     axiosClient: any
@@ -33,7 +33,7 @@ class AxiosClient {
     }
 
     post = async (resource: string, data: any, config = {}) => {
-        this.axiosClient.post(resource, data, config)
+        return this.axiosClient.post(resource, data, config)
     }
 }
 
