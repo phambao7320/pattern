@@ -46,7 +46,7 @@ export const HocPattern = () => {
         const url = URL.createObjectURL(blob)
         const link = document.createElement('a')
         link.href = url
-        link.download = 'demo.doc'
+        link.download = 'demo.docxxx'
         link.click()
         console.log(url)
         URL.revokeObjectURL(url)
@@ -63,9 +63,9 @@ export const HocPattern = () => {
             <div className='flex gap-2 items-center'>
                 {button1}
                 {button2}
-                <button onClick={convertToWordFile}>Down</button>
-                <h1>Change Test Deploy Remove Cache</h1>
+                <button onClick={convertToWordFile}>Down Load</button>
             </div>
+            <p>Bla bla</p>
         </>
     )
 }

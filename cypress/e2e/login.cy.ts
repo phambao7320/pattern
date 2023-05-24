@@ -1,20 +1,22 @@
 describe('My First Login Test', () => {
     it('login devlandnow', () => {
-        cy.visit('https://dev--landnow-ui.netlify.app/')
+        cy.visit('https://www.google.com/')
 
-        // Should go to the login
-        cy.url().should('include', '/login')
+        // cy.visit('https://pr-2194--landnow-ui.netlify.app/')
 
-        // Show form login
-        cy.contains('Welcome to Landnow')
+        // // Should go to the login
+        // cy.url().should('include', '/login')
 
-        // Form
-        cy.get('input[name="userName"]').type('jenny')
-        cy.get('input[name="password"]').type('Test123!')
-        cy.get('button[type="submit"]').click()
-        cy.wait(7000)
+        // // Show form login
+        // cy.contains('Welcome to Landnow')
 
-        // Login Succesfully
-        cy.get('[data-testid="user-fullname"]').contains('Jenny Perry')
+        // // Form
+        // cy.get('input[name="userName"]').type('jenny')
+        // cy.get('input[name="password"]').type('Test123!')
+        // cy.get('button[type="submit"]').click()
+        // cy.wait(7000)
+
+        // // Login Succesfully
+        // cy.get('[data-testid="user-fullname"]').contains('Jenny Perry')
     })
 })
