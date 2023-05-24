@@ -46,7 +46,7 @@ export const HocPattern = () => {
         const url = URL.createObjectURL(blob)
         const link = document.createElement('a')
         link.href = url
-        link.download = 'demo.doc'
+        link.download = 'demo.docxxx'
         link.click()
         console.log(url)
         URL.revokeObjectURL(url)
