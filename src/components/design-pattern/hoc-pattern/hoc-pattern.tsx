@@ -48,7 +48,7 @@ export const HocPattern = () => {
         link.href = url
         link.download = 'demo.doc'
         link.click()
-        console.log(url)
+        console.log('URL ', url)
         URL.revokeObjectURL(url)
     }
 
