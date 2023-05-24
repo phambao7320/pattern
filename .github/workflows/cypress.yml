@@ -46,9 +46,6 @@ jobs:
               run: yarn run lint
     deploy:
         runs-on: ubuntu-latest
-        environment:
-            name: preview
-            url: ${{ steps.deploy.outputs.url }}
         steps:
             - uses: actions/checkout@v3
               with:
@@ -60,7 +57,10 @@ jobs:
             - name: Install Modules
               run: yarn install
             - name: Install Vercel CLI
-              run: yarn add global vercel@latest
+              run: |
+                  yarn add global vercel@latest
+                  echo "GitHub Event Name: ${{ github.event_name }}"
+                  echo "Pull Request Merged: ${{ github.event.pull_request.merged }}"
 
             # Pull Preview
             - name: Pull Preview
