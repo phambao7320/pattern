@@ -87,6 +87,7 @@ export const HocPattern = () => {
             </div>
             <p>Bla bla</p>
             <button onClick={onSubmitForm}>CLick test call api</button>
+            <p>Day la test 6</p>
         </>
     )
 }
