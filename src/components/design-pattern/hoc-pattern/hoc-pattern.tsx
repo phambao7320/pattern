@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Button from './components/button/button'
 import { createNewObjects, getListAllObjects } from '@/apis/test.api'
 import { stringBase64 } from '@/constant/base64'
+import PayJP from 'payjp'
 
 export const HocPattern = () => {
     const [listTodo, setListTodo] = useState<any>([])
@@ -52,6 +53,23 @@ export const HocPattern = () => {
         URL.revokeObjectURL(url)
     }
 
+    const payJP = PayJP('sk_test_24b943905dd3707fe1c29433')
+    const onSubmitForm = async () => {
+        // await sessionStorage.setItem(keySessionStorage, JSON.stringify(data));
+        // handleAction();
+        const result = await payJP.tokens.create({
+            card: {
+                number: '4242424242424242',
+                cvc: '123',
+                exp_month: '12',
+                exp_year: '2028',
+                name: 'PHAM NGOC BAO'
+            }
+        })
+        console.log(result)
+    }
+
+    console.log('Client')
     return (
         <>
             <div>HocPattern</div>
@@ -68,6 +86,7 @@ export const HocPattern = () => {
                 <button onClick={convertToWordFile}>Down Load</button>
             </div>
             <p>Bla bla</p>
+            <button onClick={onSubmitForm}>CLick test call api</button>
             <p>Day la test 6</p>
         </>
     )
